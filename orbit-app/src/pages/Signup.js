@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Card from '../components/common/Card';
@@ -12,6 +12,7 @@ import FormSuccess from './../components/FormSuccess';
 import logo from './../images/logo.png';
 import { publicFetch } from "./../util/fetch";
 import { Redirect } from "react-router-dom";
+import { AuthContext } from "./../context/AuthContext";
 
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string().required(
@@ -29,12 +30,16 @@ const Signup = () => {
   const [signupError, setSignupError] = useState();
   const [loginLoading, setLoginLoading] = useState(false);
   const [redirectOnLogin, setRedirectOnLogin] = useState(false);
+
+  const { setAuthState } = useContext(AuthContext);
+
   const submitCredentials = async credentials => {
     try {
       setLoginLoading(true);
       const { data } = await publicFetch.post('signup', credentials);
       setSignupSuccess(data.message);
       setSignupError("");
+      setAuthState(data);
 
       setTimeout(() => {
         setRedirectOnLogin(true);
