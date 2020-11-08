@@ -39,6 +39,10 @@ const AuthProvider = ({ children }) => {
     return new Date().getTime() / 1000 < authState.expiresAt;
   }
 
+  const isAdmin = () => {
+    return authState.userInfo.role === 'admin';
+  }
+
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("expires");
@@ -57,6 +61,7 @@ const AuthProvider = ({ children }) => {
         authState,
         setAuthState: (authInfo) => setAuthStateInfo(authInfo),
         isAuthenticated,
+        isAdmin,
         logout
       }}
     >
