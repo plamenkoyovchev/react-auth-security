@@ -26,11 +26,20 @@ const AuthProvider = ({ children }) => {
     });
   }
 
+  const isAuthenticated = () => {
+    if (!authState.token || !authState.expiresAt) {
+      return false
+    }
+    // expiresAt is in seconds therefore we should divide by 1000 since getTime returns miliseconds
+    return new Date().getTime() / 1000 < authState.expiresAt;
+  }
+
   return (
     <Provider
       value={{
         authState,
-        setAuthState: (authInfo) => setAuthStateInfo(authInfo)
+        setAuthState: (authInfo) => setAuthStateInfo(authInfo),
+        isAuthenticated
       }}
     >
       {children}
