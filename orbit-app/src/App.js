@@ -5,7 +5,7 @@ import {
   Switch
 } from 'react-router-dom';
 import './App.css';
-import AppShell from './AppShell';
+
 import AdminRoute from './components/AdminRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { AuthProvider } from './context/AuthContext';
