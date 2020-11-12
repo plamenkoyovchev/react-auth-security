@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import { Redirect } from "react-router";
+import { Redirect, Route } from "react-router";
 import AppShell from "../AppShell";
 import { AuthContext } from "../context/AuthContext";
 
