@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import AppShell from './AppShell';
+import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { FetchProvider } from './context/FetchContext';
 import Account from './pages/Account';
@@ -30,31 +31,21 @@ const AppRoutes = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      <Route path="/dashboard">
-        <AppShell>
-          <Dashboard />
-        </AppShell>
-      </Route>
-      <Route path="/inventory">
-        <AppShell>
-          <Inventory />
-        </AppShell>
-      </Route>
-      <Route path="/account">
-        <AppShell>
-          <Account />
-        </AppShell>
-      </Route>
-      <Route path="/settings">
-        <AppShell>
-          <Settings />
-        </AppShell>
-      </Route>
-      <Route path="/users">
-        <AppShell>
-          <Users />
-        </AppShell>
-      </Route>
+      <AuthenticatedRoute path="/dashboard">
+        <Dashboard />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute path="/inventory">
+        <Inventory />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute path="/account">
+        <Account />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute path="/settings">
+        <Settings />
+      </AuthenticatedRoute>
+      <AuthenticatedRoute path="/users">
+        <Users />
+      </AuthenticatedRoute>
       <Route path="*">
         <FourOFour />
       </Route>
