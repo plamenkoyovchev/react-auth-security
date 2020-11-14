@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -10,47 +10,51 @@ import AdminRoute from './components/AdminRoute';
 import AuthenticatedRoute from './components/AuthenticatedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { FetchProvider } from './context/FetchContext';
-import Account from './pages/Account';
-import Dashboard from './pages/Dashboard';
+
 import FourOFour from './pages/FourOFour';
-import Home from './pages/Home';
-import Inventory from './pages/Inventory';
 import Login from './pages/Login';
-import Settings from './pages/Settings';
 import Signup from './pages/Signup';
-import Users from './pages/Users';
+import Home from './pages/Home';
+
+const Account = lazy(() => import('./pages/Account'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Inventory = lazy(() => import('./pages/Inventory'));
+const Settings = lazy(() => import('./pages/Settings'));
+const Users = lazy(() => import('./pages/Users'));
 
 const AppRoutes = () => {
   return (
-    <Switch>
-      <Route path="/login">
-        <Login />
-      </Route>
-      <Route path="/signup">
-        <Signup />
-      </Route>
-      <Route exact path="/">
-        <Home />
-      </Route>
-      <AuthenticatedRoute path="/dashboard">
-        <Dashboard />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute path="/inventory">
-        <Inventory />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute path="/account">
-        <Account />
-      </AuthenticatedRoute>
-      <AuthenticatedRoute path="/settings">
-        <Settings />
-      </AuthenticatedRoute>
-      <AdminRoute path="/users">
-        <Users />
-      </AdminRoute>
-      <Route path="*">
-        <FourOFour />
-      </Route>
-    </Switch>
+    <Suspense fallback={<div>Loading ...</div>}>
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <AuthenticatedRoute path="/dashboard">
+          <Dashboard />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/inventory">
+          <Inventory />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/account">
+          <Account />
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/settings">
+          <Settings />
+        </AuthenticatedRoute>
+        <AdminRoute path="/users">
+          <Users />
+        </AdminRoute>
+        <Route path="*">
+          <FourOFour />
+        </Route>
+      </Switch>
+    </Suspense>
   );
 };
 
